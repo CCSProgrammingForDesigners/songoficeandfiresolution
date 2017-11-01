@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A Song of Ice and Fire</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  </head>
+  <body>
+    <div class="container">
+
+
+
+      <div class="row">
+        <div class="col">
+          <h1>A Song of Ice and Fire Character Sheet</h1>
+          <hr>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <h2> Alive! (for now)</h2>
+          <ul id="alive" class="list-group">
+
+          </ul>
+        </div>
+
+        <div class="col">
+          <h2>Dead! (Got the Greyscale)</h2>
+          <ul id="dead" class="list-group">
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+
+      const deadList = document.getElementById('dead')
+      const aliveList = document.getElementById('alive')
+
+
+
+      for( let page = 1; page < 13; page++){
+        const url = `https://www.anapioficeandfire.com/api/characters?page=${page}&pageSize=50&isAlive=false`
+        console.log("We just loaded the page number of:", url )
+        axios(url).
+        then(response => {return response.data}).
+        then(data => {
+          for(char of data){
+            let deadListItem = `<li class="list-group-item">${char.name}</li>`
+            dead.insertAdjacentHTML('beforeend', deadListItem);
+          }
+        })
+      }
+
+      for( let page = 1; page < 33; page++){
+        const url = `https://www.anapioficeandfire.com/api/characters?page=${page}&pageSize=50&isAlive=true`
+        console.log("We just loaded the page number of:", url )
+        axios(url).
+        then(response => {return response.data}).
+        then(data => {
+          for(char of data){
+            let aliveListItem = `<li class="list-group-item">${char.name}</li>`
+            alive.insertAdjacentHTML('beforeend', aliveListItem);
+          }
+        })
+      }
+
+
+
+
+
+    </script>
+
+  </body>
+</html>
